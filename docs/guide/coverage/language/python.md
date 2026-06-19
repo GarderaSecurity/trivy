@@ -1,6 +1,6 @@
 # Python
 
-Trivy supports the following Python package managers: `pip`, `Pipenv`, `Poetry` and `uv`.
+Trivy supports the following Python package managers: `pip`, `Pipenv`, `Poetry`, `PDM` and `uv`.
 Trivy also supports the `pylock.toml` lock file format defined by [PEP 751](https://peps.python.org/pep-0751/).
 The following scanners are supported for package managers.
 
@@ -9,6 +9,7 @@ The following scanners are supported for package managers.
 | pip             |  ✓   |       ✓       |    ✓    |
 | Pipenv          |  ✓   |       ✓       |    -    |
 | Poetry          |  ✓   |       ✓       |    -    |
+| PDM             |  ✓   |       ✓       |    -    |
 | uv              |  ✓   |       ✓       |    -    |
 | pylock          |  ✓   |       ✓       |    -    |
 
@@ -29,6 +30,7 @@ The following table provides an outline of the features Trivy offers.
 | pip             | requirements.txt |            -            |     Include      |                  -                   |    ✓     |                    ✓                     |
 | Pipenv          | Pipfile.lock     |            ✓            |     Include      |                  -                   |    ✓     |                Not needed                |
 | Poetry          | poetry.lock      |            ✓            |     [Exclude](#poetry)      |                  ✓                   |    -     |                Not needed                |
+| PDM             | pdm.lock         |            ✓            |     [Exclude](#pdm)      |                  ✓                   |    -     |                Not needed                |
 | uv              | uv.lock          |            ✓            |     [Exclude](#uv)      |                  ✓                   |    -     |                Not needed                |
 | pylock          | pylock.toml[^2]  |            ✓            |     [Exclude](#pylock)      |                  ✓                   |    -     |                Not needed                |
 
@@ -132,6 +134,15 @@ Trivy uses `poetry.lock` to identify dependencies and find vulnerabilities.
 To build the correct dependency graph, `pyproject.toml` also needs to be present next to `poetry.lock`.
 
 License detection is not supported for `Poetry`.
+
+By default, Trivy doesn't report development dependencies. Use the `--include-dev-deps` flag to include them.
+
+
+### PDM
+Trivy uses `pdm.lock` to identify dependencies and find vulnerabilities.
+Dependencies that belong only to non-`default` groups (e.g. `dev`, `tests`) are treated as development dependencies.
+
+License detection is not supported for `PDM`.
 
 By default, Trivy doesn't report development dependencies. Use the `--include-dev-deps` flag to include them.
 
