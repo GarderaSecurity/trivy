@@ -457,7 +457,7 @@ func purlType(t ftypes.TargetType) string {
 		return packageurl.TypeMaven
 	case ftypes.Bundler, ftypes.GemSpec:
 		return packageurl.TypeGem
-	case ftypes.NuGet, ftypes.DotNetCore, ftypes.PackagesProps:
+	case ftypes.NuGet, ftypes.DotNetCore, ftypes.PackagesProps, ftypes.Csproj:
 		return packageurl.TypeNuget
 	case ftypes.Composer, ftypes.ComposerVendor:
 		return packageurl.TypeComposer

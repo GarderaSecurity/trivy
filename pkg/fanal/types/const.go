@@ -110,6 +110,7 @@ const (
 	NuGet          LangType = "nuget"
 	DotNetCore     LangType = "dotnet-core"
 	PackagesProps  LangType = "packages-props"
+	Csproj         LangType = "csproj"
 	Pip            LangType = "pip"
 	Pipenv         LangType = "pipenv"
 	Poetry         LangType = "poetry"

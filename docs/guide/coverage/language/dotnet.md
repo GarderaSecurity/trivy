@@ -16,6 +16,7 @@ The following table provides an outline of the features Trivy offers.
 |    .Net Core    | *.deps.json        |            ✓            |     Excluded     |                  ✓                   |    ✓     |
 |      NuGet      | packages.config    |            ✓            |     Excluded     |                  -                   |    -     |
 |      NuGet      | *Packages.props    |            -            |     Excluded     |                  -                   |    -     |
+|      NuGet      | *.csproj           |            -            |     Excluded     |                  -                   |    -     |
 |      NuGet      | packages.lock.json |            ✓            |     Included     |                  ✓                   |    ✓     |
 
 ## *.deps.json
@@ -36,6 +37,16 @@ Trivy uses [*.nuspec][nuspec] files from [global packages folder][global-package
 !!! note
     The `licenseUrl` field is [deprecated][license-url]. Trivy doesn't parse this field and only checks the [license] field (license `expression` type only).
 Currently only the default path and `NUGET_PACKAGES` environment variable are supported.
+
+## *.csproj
+Trivy parses the `PackageReference` items of SDK-style project files (`*.csproj`, `*.vbproj`, `*.fsproj`).
+
+A project file declares the direct dependencies the project asked for, not what NuGet resolved. Only references with one exact version are reported: a wildcard, a version range or an MSBuild property such as `$(Version)` is skipped, and transitive dependencies are not visible at all. Treat the result as a lower bound.
+
+When a `packages.lock.json` sits next to the project file, that file is complete and the project file is not scanned.
+
+!!! tip
+    [Enable][enable-lock] lock files to get transitive dependencies and the versions NuGet actually resolved.
 
 ## packages.lock.json
 Don't forgot to [enable][enable-lock] lock files in your project.
