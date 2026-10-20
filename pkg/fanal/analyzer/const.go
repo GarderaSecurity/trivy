@@ -143,6 +143,11 @@ const (
 	// ========
 	TypeLicenseFile Type = "license-file"
 
+	// ====================
+	// Cryptographic Assets
+	// ====================
+	TypeCrypto Type = "crypto"
+
 	// ========
 	// Secrets
 	// ========
@@ -153,6 +158,11 @@ const (
 	// =======
 	TypeRedHatContentManifestType Type = "redhat-content-manifest"
 	TypeRedHatDockerfileType      Type = "redhat-dockerfile"
+
+	// =========
+	// RapidFort
+	// =========
+	TypeRapidFortCurated Type = "rapidfort-curated"
 )
 
 var (
@@ -182,6 +192,7 @@ var (
 		TypeRpmqa,
 		TypeApkRepo,
 		TypeApkCommand,
+		TypeRapidFortCurated,
 	}
 
 	// TypeLanguages has all language analyzers
