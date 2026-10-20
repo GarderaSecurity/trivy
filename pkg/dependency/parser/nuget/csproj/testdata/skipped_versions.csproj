@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <JsonVersion>13.0.1</JsonVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Floating" Version="1.*" />
+    <PackageReference Include="Wildcard" Version="*" />
+    <PackageReference Include="Range" Version="[1.0,2.0)" />
+    <PackageReference Include="OpenRange" Version="(,1.0]" />
+    <PackageReference Include="Variable" Version="$(JsonVersion)" />
+    <PackageReference Include="$(PackageName)" Version="1.0.0" />
+    <PackageReference Include="CentrallyManaged" />
+    <PackageReference Include="Overridden" VersionOverride="2.0.0" />
+    <PackageReference Include="ExactPin" Version="[12.0.3]" />
+    <PackageReference Include="Prerelease" Version="1.0.0-beta.1" />
+    <PackageReference Include="" Version="1.0.0" />
+  </ItemGroup>
+</Project>

@@ -45,7 +45,7 @@ func NewDriver(libType ftypes.LangType) (Driver, bool) {
 	case ftypes.Npm, ftypes.Yarn, ftypes.Pnpm, ftypes.Bun, ftypes.NodePkg, ftypes.JavaScript:
 		eco = ecosystem.Npm
 		comparer = npm.Comparer{}
-	case ftypes.NuGet, ftypes.DotNetCore, ftypes.PackagesProps:
+	case ftypes.NuGet, ftypes.DotNetCore, ftypes.PackagesProps, ftypes.Csproj:
 		eco = ecosystem.NuGet
 		comparer = compare.GenericComparer{}
 	case ftypes.Pipenv, ftypes.Poetry, ftypes.Pdm, ftypes.Pip, ftypes.PythonPkg, ftypes.Uv, ftypes.PyLock:

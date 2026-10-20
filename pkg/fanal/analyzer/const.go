@@ -75,6 +75,7 @@ const (
 	TypeNuget         Type = "nuget"
 	TypeDotNetCore    Type = "dotnet-core"
 	TypePackagesProps Type = "packages-props"
+	TypeCsproj        Type = "csproj"
 
 	// Conda
 	TypeCondaPkg Type = "conda-pkg"
@@ -214,6 +215,7 @@ var (
 		TypeNuget,
 		TypeDotNetCore,
 		TypePackagesProps,
+		TypeCsproj,
 		TypeCondaPkg,
 		TypeCondaEnv,
 		TypePythonPkg,
