@@ -28,7 +28,8 @@ func getClustersAndInstances(ctx parser.FileContext) ([]rds.Cluster, []rds.Insta
 				EncryptStorage: r.GetBoolProperty("StorageEncrypted"),
 				KMSKeyID:       r.GetStringProperty("KmsKeyId"),
 			},
-			PublicAccess:                     r.GetBoolProperty("PubliclyAccessible", true),
+			// Unset depends on the VPC, which the template does not show; Terraform reads it as false too.
+			PublicAccess:                     r.GetBoolProperty("PubliclyAccessible"),
 			Engine:                           r.GetStringProperty("Engine"),
 			IAMAuthEnabled:                   r.GetBoolProperty("EnableIAMDatabaseAuthentication"),
 			DeletionProtection:               r.GetBoolProperty("DeletionProtection", false),

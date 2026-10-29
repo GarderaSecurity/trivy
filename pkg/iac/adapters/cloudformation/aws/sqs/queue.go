@@ -16,8 +16,9 @@ func getQueues(ctx parser.FileContext) (queues []sqs.Queue) {
 			Metadata: r.Metadata(),
 			QueueURL: iacTypes.StringDefault("", r.Metadata()),
 			Encryption: sqs.Encryption{
-				Metadata:          r.Metadata(),
-				ManagedEncryption: iacTypes.Bool(false, r.Metadata()),
+				Metadata: r.Metadata(),
+				// AWS turns SQS-managed encryption on for new queues without a KMS key.
+				ManagedEncryption: r.GetBoolProperty("SqsManagedSseEnabled", r.GetProperty("KmsMasterKeyId").IsNil()),
 				KMSKeyID:          r.GetStringProperty("KmsMasterKeyId"),
 			},
 		}

@@ -39,7 +39,10 @@ func Test_Adapt(t *testing.T) {
 			expected: sqs.SQS{
 				Queues: []sqs.Queue{
 					{
-						Encryption: sqs.Encryption{},
+						Encryption: sqs.Encryption{
+							// AWS turns SQS-managed encryption on for new queues without a KMS key.
+							ManagedEncryption: iacTypes.BoolTest(true),
+						},
 						Policies: func() []iam.Policy {
 							sb := iamgo.NewStatementBuilder()
 							sb.WithEffect("Allow")
@@ -58,6 +61,22 @@ func Test_Adapt(t *testing.T) {
 								},
 							}
 						}(),
+					},
+				},
+			},
+		},
+		{
+			name: "managed encryption disabled",
+			terraform: `
+			resource "aws_sqs_queue" "bad_example" {
+				sqs_managed_sse_enabled = false
+			}`,
+			expected: sqs.SQS{
+				Queues: []sqs.Queue{
+					{
+						Encryption: sqs.Encryption{
+							ManagedEncryption: iacTypes.BoolTest(false),
+						},
 					},
 				},
 			},

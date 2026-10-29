@@ -158,8 +158,9 @@ func (a *adapter) adaptQueue(resource *terraform.Block) {
 		Metadata: resource.GetMetadata(),
 		QueueURL: iacTypes.StringDefault("", resource.GetMetadata()),
 		Encryption: sqs.Encryption{
-			Metadata:          resource.GetMetadata(),
-			ManagedEncryption: managedEncryption.AsBoolValueOrDefault(false, resource),
+			Metadata: resource.GetMetadata(),
+			// AWS turns SQS-managed encryption on for new queues without a KMS key.
+			ManagedEncryption: managedEncryption.AsBoolValueOrDefault(kmsKeyIdAttr.IsNil(), resource),
 			KMSKeyID:          kmsKeyIdVal,
 		},
 		Policies: policies,
