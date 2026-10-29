@@ -73,7 +73,46 @@ Resources:
     Type: AWS::SQS::Queue
   `,
 			expected: sqs.SQS{
-				Queues: []sqs.Queue{{}},
+				Queues: []sqs.Queue{{
+					// AWS turns SQS-managed encryption on for new queues without a KMS key.
+					Encryption: sqs.Encryption{
+						ManagedEncryption: types.BoolTest(true),
+					},
+				}},
+			},
+		},
+		{
+			name: "managed encryption disabled",
+			source: `AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  MyQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      SqsManagedSseEnabled: false
+`,
+			expected: sqs.SQS{
+				Queues: []sqs.Queue{{
+					Encryption: sqs.Encryption{
+						ManagedEncryption: types.BoolTest(false),
+					},
+				}},
+			},
+		},
+		{
+			name: "managed encryption enabled",
+			source: `AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  MyQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      SqsManagedSseEnabled: true
+`,
+			expected: sqs.SQS{
+				Queues: []sqs.Queue{{
+					Encryption: sqs.Encryption{
+						ManagedEncryption: types.BoolTest(true),
+					},
+				}},
 			},
 		},
 	}

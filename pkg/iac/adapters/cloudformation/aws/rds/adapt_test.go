@@ -159,8 +159,27 @@ Resources:
 				}},
 				Instances: []rds.Instance{{
 					BackupRetentionPeriodDays: types.IntTest(1),
+					// Unset depends on the network the template does not show; not public, as for Terraform.
+					PublicAccess:      types.BoolTest(false),
+					DBParameterGroups: []rds.DBParameterGroupsList{{}},
+				}},
+			},
+		},
+		{
+			name: "publicly accessible",
+			source: `AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  RDSDBInstance1:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      PubliclyAccessible: true
+`,
+			expected: rds.RDS{
+				Clusters: []rds.Cluster{},
+				Instances: []rds.Instance{{
+					BackupRetentionPeriodDays: types.IntTest(1),
 					PublicAccess:              types.BoolTest(true),
-					DBParameterGroups:         []rds.DBParameterGroupsList{{}},
+					PubliclyAccessible:        types.BoolTest(true),
 				}},
 			},
 		},
